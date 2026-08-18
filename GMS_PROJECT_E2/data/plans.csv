@@ -1,0 +1,4 @@
+planId,planName,price,durationMonths
+P1,Basic Monthly,50.00,1
+P2,VIP Annual,500.00,12
+P3,Cardio VIP,100.00,3

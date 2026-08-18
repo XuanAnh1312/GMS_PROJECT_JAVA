@@ -1,0 +1,7 @@
+role,userId,username,password,email,extra1,extra2,extra3
+ADMIN,A1,admin,adminpass,admin@example.com,super,,
+TRAINER,T1,trainer1,tpass,trainer1@example.com,Strength & Fitness,,
+MEMBER,M1,member1,mpass,member1@example.com,0901234567,1995-05-20,MEM-1001
+MEMBER,M2,member2,mpass,member2@example.com,0987654321,1998-08-15,MEM-1002
+TRAINER,T99,trainer99,pass,t99@gym.com,Pilates,,
+MEMBER,M104,Xuan Anh,memberxa,xa@example.com,0909000999,2006-12-13,MEM-FF6DE743

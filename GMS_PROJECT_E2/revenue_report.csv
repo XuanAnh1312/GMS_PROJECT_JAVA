@@ -1,0 +1,6 @@
+SubscriptionID,StartDate,EndDate,Status,PlanName,AmountPaid
+SUB1,2026-08-08,2026-09-18,active,Basic Monthly,50.00
+SUB-106F0F37,2026-08-18,2026-09-18,active,Basic Monthly,50.00
+SUB-953AC69D,2026-08-18,2026-09-18,active,Basic Monthly,50.00
+TOTAL_REVENUE,,,,,
+Active Total,,,,,150.00
