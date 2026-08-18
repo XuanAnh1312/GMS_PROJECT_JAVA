@@ -1,0 +1,273 @@
+1. TỔNG QUAN HỆ THỐNG
+ 
+Hệ thống Quản lý Phòng tập (GMS) là ứng dụng Java hướng đối tượng (OOP) được thiết kế 
+để quản lý toàn bộ hoạt động của phòng gym một cách hiệu quả. Kiến trúc ứng dụng tuân 
+thủ nghiêm ngặt theo Sơ đồ lớp (ClassDiagram.drawio.png) và Lưu đồ thuật toán (FlowChart.drawio.png).
+
+Các tính năng cốt lõi:
+- Phân quyền người dùng (Role-Based Access Control): Admin (Quản trị viên), Trainer (Huấn luyện viên), và Member (Hội viên).
+- Quản lý Hội viên: Các thao tác CRUD (Thêm, Xem, Sửa, Xóa) do Admin thực hiện.
+- Quản lý Cơ sở vật chất & HLV: Do Admin độc quyền quản lý.
+- Quản lý Gói tập: Khởi tạo, chỉnh sửa và gia hạn gói đăng ký.
+- Quản lý Lịch tập & Tiến độ: HLV phân công lịch tập, Member tự cập nhật tiến độ.
+- Theo dõi Điểm danh: HLV và Member ghi nhận lịch sử tham gia tập luyện.
+- Báo cáo & Thống kê: Báo cáo doanh thu, điểm danh, tiến độ tập luyện và xuất file CSV.
+- Lưu trữ dữ liệu cố định (CSV Persistence): Tự động lưu và nạp dữ liệu từ các file CSV.
+
+
+2. MÔ TẢ CHI TIẾT CÁC LỚP VÀ PHƯƠNG THỨC (ClassDiagram.drawio.png)
+ 
+
+ 
+Lớp: User (Lớp trừu tượng cơ sở - Abstract Class)
+Package: edu.uth
+Quan hệ: Lớp cha của Admin, Trainer, và Member
+ 
+Thuộc tính (Attributes):
+  - userId (String): Mã định danh duy nhất của người dùng.
+  - username (String): Tên đăng nhập tài khoản.
+  - password (String): Mật khẩu tài khoản.
+  - email (String): Địa chỉ email của người dùng.
+  - role (Role): Vai trò phân quyền (ADMIN, TRAINER, MEMBER).
+
+Phương thức (Methods):
+  + login(): boolean
+      Kiểm tra trạng thái đăng nhập hợp lệ của người dùng.
+  + login(String username, String password): boolean
+      Xác thực thông tin tên đăng nhập và mật khẩu khớp với hệ thống.
+  + logout(): void
+      Đăng xuất người dùng khỏi hệ thống và in thông báo.
+  + getRole(): Role
+      Trả về vai trò (Role) của người dùng.
+  + Setters / Getters: Các phương thức truy cập và cập nhật giá trị thuộc tính.
+
+ 
+Lớp: Admin (Kế thừa từ User)
+Package: edu.uth
+ 
+Thuộc tính (Attributes):
+  - adminLevel (String): Cấp độ quản trị (ví dụ: "super").
+
+Phương thức (Methods):
+  + manageFacility(): void / manageFacility(List<Facility> facilities): void
+      Hiển thị và quản lý danh sách cơ sở vật chất (Xem, Thêm, Sửa, Xóa).
+  + manageTrainer(): void / manageTrainer(List<Trainer> trainers): void
+      Hiển thị và quản lý danh sách huấn luyện viên (Xem, Thêm, Sửa, Xóa).
+  + updateMemberProfile(): void / updateMemberProfile(Member member, String email): void
+      Cập nhật thông tin hồ sơ và email của hội viên.
+  + addMember(): void / addMember(Member member, List<Member> members): void
+      Thêm mới một hồ sơ hội viên vào hệ thống.
+  + updateMember(): void / updateMember(Member member, String email): void
+      Chỉnh sửa thông tin hội viên.
+  + deleteMember(): void / deleteMember(Member member, List<Member> members): void
+      Xóa hồ sơ hội viên khỏi hệ thống.
+  + managePlan(): void / managePlan(List<SubscriptionPlan> plans): void
+      Hiển thị và quản lý các gói tập (Xem, Thêm, Sửa, Xóa).
+  + generateRevenue(): void / generateRevenueReport(List<Subscription> subscriptions): void
+      Tính tổng doanh thu, số gói tập còn hạn/hết hạn và in báo cáo doanh thu.
+  + generateAttendance(): void / generateAttendanceReport(List<Attendance> attendances): void
+      Thống kê tổng số lượt điểm danh và tính tỷ lệ tham gia tập luyện.
+
+ 
+Lớp: Trainer (Kế thừa từ User)
+Package: edu.uth
+ 
+Thuộc tính (Attributes):
+  - specialization (String): Chuyên môn huấn luyện (ví dụ: "Strength & Fitness", "Pilates").
+
+Phương thức (Methods):
+  + assignSchedule(): void / assignSchedule(WorkoutSchedule schedule, Member member): void
+      Phân công lịch tập mới cho một hội viên cụ thể.
+  + updateSchedule(): void / updateSchedule(WorkoutSchedule schedule, String description): void
+      Cập nhật mô tả hoặc trạng thái lịch tập đã phân công.
+  + viewSchedule(): void / viewSchedule(Member member): void
+      Xem danh sách lịch tập đã gán cho hội viên.
+  + trackAttendance(): void / trackAttendance(Member member, Attendance attendance): void
+      Ghi nhận điểm danh tập luyện hàng ngày cho hội viên.
+  + trackProgress(): void / trackProgress(WorkoutProgress progress, Member member): void
+      Ghi nhận chỉ số tiến độ và điểm số đánh giá tập luyện cho hội viên.
+  + generateProgressReport(): void / generateProgressReport(Member member): void
+      Tạo và hiển thị báo cáo tiến độ chi tiết của hội viên.
+
+ 
+Lớp: Member (Kế thừa từ User)
+Package: edu.uth
+ 
+Thuộc tính (Attributes):
+  - phoneNumber (String): Số điện thoại liên hệ.
+  - dateOfBirth (LocalDate): Ngày tháng năm sinh.
+  - membershipId (String): Mã thẻ hội viên duy nhất (ví dụ: "MEM-1001").
+  - subscription (Subscription): Đối tượng gói tập đang sử dụng.
+  - schedules (List<WorkoutSchedule>): Danh sách lịch tập được phân công.
+  - attendances (List<Attendance>): Danh sách lịch sử điểm danh.
+  - progressRecords (List<WorkoutProgress>): Danh sách nhật ký tiến độ tập luyện.
+
+Phương thức (Methods):
+  + register(): void
+      Được kích hoạt khi Admin khởi tạo tài khoản hội viên thành công.
+  + viewSchedule(): void
+      Hiển thị danh sách lịch tập do HLV phân công cho hội viên.
+  + updateProgress(): void
+      Cho phép hội viên tự ghi nhận nhật ký tập luyện và tự đánh giá điểm số.
+  + viewReports(): void
+      Xem báo cáo tổng quan cá nhân (tỷ lệ điểm danh, điểm tiến độ trung bình).
+  + renewSubscription(): void
+      Gia hạn gói tập hiện tại của hội viên.
+  + viewSubscriptionStatus(): void
+      Xem thông tin chi tiết gói tập, ngày bắt đầu/kết thúc, số tiền và trạng thái.
+  + calculateAttendancePercentage(): double
+      Tính tỷ lệ phần trăm số buổi điểm danh "present" trên tổng số buổi.
+
+ 
+Lớp: Facility (Cơ sở vật chất)
+Package: edu.uth
+ 
+Thuộc tính (Attributes):
+  - facilityId (String): Mã cơ sở vật chất.
+  - name (String): Tên cơ sở/trang thiết bị (ví dụ: "Cardio Zone").
+  - status (String): Trạng thái hoạt động (ví dụ: "Active", "Maintenance").
+
+Phương thức (Methods):
+  + update(): void / update(String name, String status): void
+      Cập nhật tên và trạng thái hoạt động của cơ sở vật chất.
+
+ 
+Lớp: WorkoutSchedule (Lịch tập)
+Package: edu.uth
+ 
+Thuộc tính (Attributes):
+  - scheduleId (String): Mã lịch tập.
+  - description (String): Chi tiết bài tập/chương trình tập luyện.
+  - scheduleDate (LocalDate): Ngày tập luyện.
+  - status (String): Trạng thái lịch tập ("active", "completed").
+
+Phương thức (Methods):
+  + create(): void
+      Ghi nhận việc tạo mới lịch tập.
+  + update(): void / update(String description): void
+      Cập nhật nội dung mô tả lịch tập.
+  + assignToMember(): void
+      Liên kết lịch tập với hội viên.
+
+ 
+Lớp: Attendance (Điểm danh)
+Package: edu.uth
+ 
+Thuộc tính (Attributes):
+  - attendanceId (String): Mã lượt điểm danh.
+  - memberUsername (String): Tên đăng nhập của hội viên điểm danh.
+  - checkIn (LocalDateTime): Thời gian check-in.
+  - status (String): Trạng thái điểm danh ("present" hoặc "absent").
+
+Phương thức (Methods):
+  + record(): void
+      Ghi nhận thông tin điểm danh.
+
+ 
+Lớp: WorkoutProgress (Tiến độ tập luyện)
+Package: edu.uth
+ 
+Thuộc tính (Attributes):
+  - progressId (String): Mã nhật ký tiến độ.
+  - memberUsername (String): Tên đăng nhập của hội viên.
+  - recordedDate (LocalDate): Ngày ghi nhận.
+  - metrics (String): Chi tiết chỉ số bài tập (mức tạ, số rep, ghi chú).
+  - progressScore (double): Điểm số đánh giá hiệu quả (từ 0.0 đến 100.0).
+
+Phương thức (Methods):
+  + updateProgress(): void / updateProgress(String metrics, double progressScore): void
+      Cập nhật thông số bài tập và điểm số tiến độ.
+
+ 
+Lớp: Subscription (Đăng ký gói tập)
+Package: edu.uth
+ 
+Thuộc tính (Attributes):
+  - subscriptionId (String): Mã đăng ký gói tập.
+  - startDate (LocalDate): Ngày bắt đầu.
+  - endDate (LocalDate): Ngày kết thúc.
+  - status (String): Trạng thái ("active" hoặc "expired").
+  - plan (SubscriptionPlan): Gói tập được chọn.
+  - amountPaid (double): Số tiền đã thanh toán.
+
+Phương thức (Methods):
+  + renew(): void
+      Gia hạn gói tập dựa trên thời hạn quy định của gói.
+  + renewForMonths(int months, double amountPaid): void
+      Gia hạn gói tập theo số tháng và số tiền cụ thể.
+
+ 
+Lớp: SubscriptionPlan (Gói tập)
+Package: edu.uth
+ 
+Thuộc tính (Attributes):
+  - planId (String): Mã gói tập.
+  - planName (String): Tên gói tập (ví dụ: "Basic Monthly").
+  - price (double): Giá tiền của gói tập.
+  - durationMonths (int): Thời hạn gói tập tính theo tháng.
+
+Phương thức (Methods):
+  + updatePlan(): void / updatePlan(String planName, double price, int durationMonths): void
+      Cập nhật giá tiền, thời hạn và tên của gói tập.
+
+ 
+Lớp: ReportExporter (Xuất báo cáo CSV)
+Package: edu.uth
+ 
+Phương thức (Methods):
+  + exportRevenueReport(List<Subscription> subscriptions, String filename): void
+      Xuất báo cáo chi tiết doanh thu và danh sách gói tập ra file CSV.
+  + exportAttendanceReport(List<Attendance> attendances, List<Member> members, String filename): void
+      Xuất danh sách điểm danh ra file CSV.
+  + exportProgressReport(List<Member> members, String filename): void
+      Xuất nhật ký tiến độ tập luyện của tất cả hội viên ra file CSV.
+
+ 
+Lớp: DataManager (Quản lý lưu trữ CSV)
+Package: edu.uth
+ 
+Phương thức (Methods):
+  + saveAllData(...): void
+      Lưu toàn bộ danh sách đối tượng vào các file CSV trong thư mục data/.
+  + loadAllData(...): boolean
+      Đọc dữ liệu từ file CSV và phục hồi danh sách đối tượng cũng như các mối quan hệ khi ứng dụng khởi động.
+
+ 
+Lớp: IO (Hỗ trợ in ấn Console)
+Package: edu.uth
+ 
+Phương thức (Methods):
+  + print(String s): void
+  + println(String s / Object o): void
+  + printf(String format, Object... args): void
+      Các phương thức xuất dữ liệu định dạng ra màn hình Console.
+
+
+3. MÔ TẢ LUỒNG HOẠT ĐỘNG CỦA HỆ THỐNG (FlowChart.drawio.png)
+ 
+1. Khởi động -> Màn hình Đăng nhập:
+   - Người dùng nhập Username và Password.
+   - Hệ thống xác thực tài khoản.
+   - Nếu thất bại: Hiển thị thông báo lỗi và quay lại màn hình đăng nhập.
+   - Nếu thành công: Phân luồng điều hướng tới Menu tương ứng với Vai trò (Role).
+
+2. Luồng làm việc của Admin (Quản trị viên):
+   - Manage Facilities: Xem, Thêm, Sửa, Xóa cơ sở vật chất.
+   - Manage Trainers: Xem, Thêm, Sửa, Xóa tài khoản Huấn luyện viên.
+   - Manage Subscription Plans: Xem, Thêm, Sửa, Xóa các gói tập.
+   - Manage Member Profiles: Xem, Thêm, Sửa, Xóa hồ sơ Hội viên.
+   - Generate Reports: Xem và xuất Báo cáo Doanh thu, Báo cáo Điểm danh ra file CSV.
+   - Logout: Đăng xuất và quay lại màn hình chính.
+
+3. Luồng làm việc của Trainer (Huấn luyện viên):
+   - Manage Workout Schedules: Phân công lịch tập mới, cập nhật lịch tập và xem lịch tập của Member.
+   - Track Member Attendance & Progress: Ghi nhận điểm danh và tiến độ tập luyện cho Member.
+   - Generate Reports: Xem báo cáo tiến độ Member và xuất các báo cáo ra file CSV.
+   - Logout: Đăng xuất và quay lại màn hình chính.
+
+4. Luồng làm việc của Member (Hội viên):
+   - View Workout Schedules: Xem danh sách lịch tập do HLV phân công.
+   - Update Workout Progress: Tự ghi nhận nhật ký tập luyện và tự chấm điểm.
+   - View Reports: Xem báo cáo tổng quan cá nhân (tỷ lệ điểm danh, điểm tiến độ trung bình).
+   - Manage Subscriptions: Kiểm tra trạng thái gói tập và thực hiện gia hạn.
+   - Logout: Đăng xuất và quay lại màn hình chính.
