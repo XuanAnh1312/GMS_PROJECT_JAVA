@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="Page-1" id="4fxnhXiNtYgvle6wdY2y">
-    <mxGraphModel dx="841" dy="644" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1433" dy="1144" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -246,49 +246,18 @@
             <mxPoint x="590" y="570" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="FXSzwyLtpjtoVsdlYksi-21" edge="1" parent="1" source="FXSzwyLtpjtoVsdlYksi-16" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" target="FXSzwyLtpjtoVsdlYksi-19" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="FXSzwyLtpjtoVsdlYksi-23" connectable="0" parent="FXSzwyLtpjtoVsdlYksi-21" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" value="New User" vertex="1">
-          <mxGeometry relative="1" x="-0.1098" y="-1" as="geometry">
-            <mxPoint as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="FXSzwyLtpjtoVsdlYksi-22" edge="1" parent="1" source="FXSzwyLtpjtoVsdlYksi-16" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" target="FXSzwyLtpjtoVsdlYksi-20" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="FXSzwyLtpjtoVsdlYksi-24" connectable="0" parent="FXSzwyLtpjtoVsdlYksi-22" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" value="Existing User" vertex="1">
-          <mxGeometry relative="1" x="-0.1348" as="geometry">
-            <mxPoint as="offset" />
-          </mxGeometry>
-        </mxCell>
         <mxCell id="FXSzwyLtpjtoVsdlYksi-16" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Login/ Register" vertex="1">
           <mxGeometry height="60" width="120" x="322" y="110" as="geometry" />
         </mxCell>
-        <mxCell id="FXSzwyLtpjtoVsdlYksi-27" edge="1" parent="1" source="FXSzwyLtpjtoVsdlYksi-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;exitX=0.43;exitY=1.006;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="FXSzwyLtpjtoVsdlYksi-26" value="">
+        <mxCell id="FXSzwyLtpjtoVsdlYksi-28" edge="1" parent="1" source="FXSzwyLtpjtoVsdlYksi-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="FXSzwyLtpjtoVsdlYksi-26" value="">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="121.6" y="260.04" />
-            </Array>
-            <mxPoint x="108" y="210" as="sourcePoint" />
-            <mxPoint x="300" y="250" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="FXSzwyLtpjtoVsdlYksi-19" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;shapeInside=1;fixedSize=1;" value="Register" vertex="1">
-          <mxGeometry height="60" width="120" x="70" y="110" as="geometry" />
-        </mxCell>
-        <mxCell id="FXSzwyLtpjtoVsdlYksi-28" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="FXSzwyLtpjtoVsdlYksi-26" value="">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="634" y="179.96" />
-              <mxPoint x="382" y="179.96" />
+              <mxPoint x="382" y="170" />
+              <mxPoint x="382" y="170" />
             </Array>
             <mxPoint x="634.0303030303031" y="159.99999999999994" as="sourcePoint" />
             <mxPoint x="382" y="189.99999999999994" as="targetPoint" />
           </mxGeometry>
-        </mxCell>
-        <mxCell id="FXSzwyLtpjtoVsdlYksi-20" parent="1" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;shapeInside=1;fixedSize=1;" value="Log in" vertex="1">
-          <mxGeometry height="60" width="120" x="574" y="110" as="geometry" />
         </mxCell>
         <mxCell id="FXSzwyLtpjtoVsdlYksi-26" parent="1" style="rhombus;whiteSpace=wrap;html=1;shapeInside=1;" value="Check Login?" vertex="1">
           <mxGeometry height="80" width="120" x="322" y="219" as="geometry" />
